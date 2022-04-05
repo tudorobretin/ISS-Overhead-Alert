@@ -3,8 +3,10 @@ import datetime as dt
 import smtplib
 import time
 import os
+from send_mail import Send
 from mechanics import Compare
 from iss_position import GetPosition
+
 
 # ---Iss & Bucharest position-----------------
 
@@ -45,24 +47,7 @@ time_now_hour = time_now.hour + 3
 
 #---logic----------------------
 
-def send_mail():
-    KEY = os.environ['password']
-    my_email = "tudorobretin@gmail.com"
-    password = KEY
-
-    with smtplib.SMTP("smtp.gmail.com") as connection:
-        connection.starttls()
-        connection.login(user=my_email, password=password)
-        message = f"The ISS is passing over Bucharest and is currently visible; look up!\n\n" \
-                  f"ISS latitude: {iss_lat}\n" \
-                  f"ISS longitude: {iss_long}\n"
-        connection.sendmail(
-            from_addr=my_email,
-            to_addrs="tudorobre@gmail.com",
-            msg=f"Subject:ISS position\n\n{message}"
-        )
-
-
+send = Send()
 compare = Compare()
 
 sent = False
@@ -71,7 +56,7 @@ while not sent:
     if compare.is_night():
 
         if compare.is_night():
-            send_mail()
+            send.mail()
             sent = True
 
 
