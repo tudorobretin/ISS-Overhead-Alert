@@ -3,6 +3,7 @@ import datetime as dt
 import smtplib
 import time
 import os
+from Sunrise_sunset import Hours
 
 # ---Iss & Bucharest position-----------------
 
@@ -21,28 +22,12 @@ buc_long = 26.102537
 
 # ---Sunrise and sunset----------------
 
-sun_parameters_bucharest = {
-    "lat": buc_lat,
-    "lng": buc_long,
-    "formatted": 0
-}
-sun_response = requests.get(url="https://api.sunrise-sunset.org/json", params=sun_parameters_bucharest)
-sun_response.raise_for_status()
-data = sun_response.json()
-#print(data)
-sunrise = data['results']['sunrise']
-sunrise_hour = int(sunrise.split('T')[1].split(":")[0]) + 3
-#print(sunrise_hour)
-sunset = data['results']['sunset']
-sunset_hour = int(sunset.split('T')[1].split(":")[0]) + 3
-#print(sunset_hour)
+hours = Hours()
 
-# ---time now---------------------
-
-time_now = dt.datetime.now()
-time_now_hour = time_now.hour + 3
-#print(time_now_hour)
-
+sunrise_sunset = hours.get_sunrise_sunset(city_lat=buc_lat, city_long=buc_long)
+sunrise_hour = sunrise_sunset[0]
+sunset_hour = sunrise_sunset[1]
+current_hour = hours.get_current_hour()
 
 #---logic----------------------
 
@@ -58,7 +43,7 @@ def near():
 
 def is_night():
 
-    if time_now_hour > sunset_hour or time_now_hour < sunrise_hour:
+    if current_hour > sunset_hour or current_hour < sunrise_hour:
         return True
 
     else:

@@ -14,7 +14,8 @@ Features:
 - Sends email using smtp library
 
 *Ideally this script would be hosted and ran every 30 minutes for full functionality
-
+*needs bug fix to deal with city change and error cause by different time zone
+*needs other method of getting time now, to adapt for city changes
 
 ![](https://github.com/tudorobretin/ISS-Overhead-Alert/blob/master/iss_mail.png)
 
