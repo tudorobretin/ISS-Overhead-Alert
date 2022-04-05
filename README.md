@@ -5,6 +5,7 @@ A python script that emails you and your friends when the international space st
 
     -Necesary information is taken from ISS API and Sunrise-sunset.org API
     -Uses environment variables to store and use email password
+    -Project structured using OOP
 
 Features:
 - Gets sunrise and sunset times from API call
