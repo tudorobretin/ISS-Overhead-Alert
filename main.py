@@ -3,6 +3,7 @@ import datetime as dt
 import smtplib
 import time
 import os
+from mechanics import Compare
 
 # ---Iss & Bucharest position-----------------
 
@@ -46,25 +47,6 @@ time_now_hour = time_now.hour + 3
 
 #---logic----------------------
 
-
-def near():
-    if buc_long - 7 < iss_long < buc_long + 7:
-        if buc_lat - 7 < iss_lat < buc_lat + 7:
-            print("yes")
-            return True
-    else:
-        return False
-
-
-def is_night():
-
-    if time_now_hour > sunset_hour or time_now_hour < sunrise_hour:
-        return True
-
-    else:
-        return False
-
-
 def send_mail():
     KEY = os.environ['password']
     my_email = "tudorobretin@gmail.com"
@@ -83,13 +65,14 @@ def send_mail():
         )
 
 
+compare = Compare()
+
 sent = False
 while not sent:
 
-    if is_night():
+    if compare.is_night():
 
-        if near():
-            #print("entered send mail")
+        if compare.is_night():
             send_mail()
             sent = True
 
