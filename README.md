@@ -1,4 +1,4 @@
-# Snake Game
+# ISS-Overhead-Alert
 A python script that emails you and your friends when the international space station is visible from Bucharest.
 
 ## Features and used concepts:
