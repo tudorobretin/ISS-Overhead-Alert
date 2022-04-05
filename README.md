@@ -16,7 +16,7 @@ Features:
 *Ideally this script would be hosted and ran every 30 minutes for full functionality
 
 
-![](https://github.com/tudorobretin/Snake-Game/blob/readme/Snake.gif)
+![](https://github.com/tudorobretin/ISS-Overhead-Alert/blob/master/iss_mail.png)
 
 
         
