@@ -4,21 +4,21 @@ import smtplib
 import time
 import os
 from send_mail import Send
+from mechanics import Compare
+from iss_position import GetPosition
+
 
 # ---Iss & Bucharest position-----------------
 
-iss_response = requests.get(url="http://api.open-notify.org/iss-now.json")
-data = iss_response.json()
-iss_lat = float(data["iss_position"]['latitude'])
-iss_long = float(data["iss_position"]["longitude"])
-position = (iss_lat, iss_long)
-# print(position)
+get_position = GetPosition()
 
-buc_lat = 44.426765
-buc_long = 26.102537
-# buc_lat = -38
-# buc_long = 153
+iss_position = get_position.iss()
+iss_lat = iss_position[0]
+iss_long = iss_position[1]
 
+buc_position = get_position.bucharest()
+buc_lat = buc_position[0]
+buc_long = buc_position[1]
 
 # ---Sunrise and sunset----------------
 
@@ -47,35 +47,15 @@ time_now_hour = time_now.hour + 3
 
 #---logic----------------------
 
-
-def near():
-    if buc_long - 7 < iss_long < buc_long + 7:
-        if buc_lat - 7 < iss_lat < buc_lat + 7:
-            print("yes")
-            return True
-    else:
-        return False
-
-
-def is_night():
-
-    if time_now_hour > sunset_hour or time_now_hour < sunrise_hour:
-        return True
-
-    else:
-        return False
-
-
 send = Send()
-
+compare = Compare()
 
 sent = False
 while not sent:
 
-    if is_night():
+    if compare.is_night():
 
-        if near():
-            #print("entered send mail")
+        if compare.is_night():
             send.mail()
             sent = True
 
